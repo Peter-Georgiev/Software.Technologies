@@ -1,19 +1,15 @@
 <?php
-if (isset($_GET['submit_btm'])) {
-    $a = intval($_GET['num1']);
-    $b = intval($_GET['num2']);
-    $result = $a + $b;
-    echo "$a + $b = $result";
+if (isset($_GET['num1']) && isset($_GET['num2'])) {
+    $num1 = intval($_GET['num1']);
+    $num2 = intval($_GET['num2']);
+    $sum = $num1 + $num2;
+    echo "$num1 + $num2 = $sum";
 }
 ?>
 <form>
     <div>First Number:</div>
-    <input type="number" name="num1" value="0" />
+    <input type="number" name="num1" />
     <div>Second Number:</div>
-    <input type="number" name="num2" value="0"/>
-    <div><input type="submit" name="submit_btm" /></div>
+    <input type="number" name="num2" />
+    <div><input type="submit" /></div>
 </form>
-<?php
-function sum(int $a, int $b ): int {
-    return $a + $b;
-}
