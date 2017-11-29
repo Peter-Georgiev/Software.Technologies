@@ -5,10 +5,15 @@ import java.util.Scanner;
 
 public class ReverseCharacters {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
         ArrayList arr = new ArrayList();
+        Scanner scanner = new Scanner(System.in);
+
+        arr.add(scanner.nextLine().trim());
+        arr.add(scanner.nextLine().trim());
         arr.add(scanner.nextLine().trim());
 
-
+        for (int i = arr.size() - 1; i >= 0 ; i--) {
+            System.out.print(arr.get(i));
+        }
     }
 }
