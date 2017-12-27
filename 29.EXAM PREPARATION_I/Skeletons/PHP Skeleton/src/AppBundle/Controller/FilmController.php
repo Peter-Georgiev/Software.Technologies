@@ -18,6 +18,8 @@ class FilmController extends Controller
     public function index(Request $request)
     {
         //TODO: Implement me ...
+        $films = $this->getDoctrine()->getRepository(Film::class)->findAll();
+        return $this->render("film/index.html.twig", array('films' => $films));
     }
 
     /**
@@ -28,6 +30,19 @@ class FilmController extends Controller
     public function create(Request $request)
     {
         //TODO: Implement me ...
+        $film = new Film();
+        $form = $this->createForm(FilmType::class, $film);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($film);
+            $em->flush();
+
+            return $this->redirectToRoute('index');
+        }
+
+        return $this->render(':film:create.html.twig', array('form' => $form->createView()));
 	}
 
     /**
@@ -40,6 +55,19 @@ class FilmController extends Controller
     public function edit($id, Request $request)
     {
         //TODO: Implement me ...
+        $film = $this->getDoctrine()->getRepository(Film::class)->find($id);
+        $form = $this->createForm(FilmType::class, $film);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($film);
+            $em->flush();
+
+            return $this->redirectToRoute('index');
+        }
+
+        return $this->render('film/edit.html.twig', array('form' => $form->createView(), 'film' => $film));
     }
 
     /**
@@ -52,5 +80,18 @@ class FilmController extends Controller
     public function delete($id, Request $request)
     {
         //TODO: Implement me ...
+        $film = $this->getDoctrine()->getRepository(Film::class)->find($id);
+        $form = $this->createForm(FilmType::class, $film);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($film);
+            $em->flush();
+
+            return $this->redirectToRoute('index');
+        }
+
+        return $this->render('film/edit.html.twig', array('form' => $form->createView(), 'film' => $film));
     }
 }
